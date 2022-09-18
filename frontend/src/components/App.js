@@ -247,7 +247,7 @@ export default function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    checkToken();
+          checkToken();
   }, []);
 
   return (

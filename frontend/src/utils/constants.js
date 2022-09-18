@@ -1,4 +1,4 @@
-﻿﻿export const apiConfig = {
+export const apiConfig = {
   serverURL: 'https://mesto.nomoreparties.co/v1/cohort-43',
   cardsURL: 'cards',
   likesURL: 'likes',
