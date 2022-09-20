@@ -1,8 +1,8 @@
 export const paths = {
   any: '*',
   root: '/',
-  login: '/sign-in',
-  register: '/sign-up',
+  login: '/signin',
+  register: '/sigup',
 };
 
 export const apiConfig = {

@@ -66,7 +66,7 @@ export default function Register(props) {
         </button>
         <div className='form__link'>
           Уже зарегистрированы?
-          <Link className='link form__link_link' to='/sign-in'>
+          <Link className='link form__link_link' to='/signin'>
             Войти
           </Link>
         </div>
