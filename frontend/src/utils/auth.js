@@ -1,4 +1,4 @@
-import { authConfig as cfg } from './constants.js';
+import { apiConfig as cfg } from './constants.js';
 
 function handleResponse(res) {
   if (res.ok) {
@@ -8,9 +8,9 @@ function handleResponse(res) {
 }
 
 export function register({ email, password }) {
-  return fetch(`${cfg.BASE_URL}/${cfg.REGISTER}`, {
+  return fetch(`${cfg.API_URL}/${cfg.REGISTER}`, {
     method: 'POST',
-    headers: cfg.HEADERS,
+    headers: cfg.RES_HEADERS,
     body: JSON.stringify({ email, password }),
   }).then((res) => {
     return handleResponse(res);
@@ -18,9 +18,9 @@ export function register({ email, password }) {
 }
 
 export function authorize({ email, password }) {
-  return fetch(`${cfg.BASE_URL}/${cfg.LOGIN}`, {
+  return fetch(`${cfg.API_URL}/${cfg.LOGIN}`, {
     method: 'POST',
-    headers: cfg.HEADERS,
+    headers: cfg.RES_HEADERS,
     body: JSON.stringify({ email, password }),
   }).then((res) => {
     return handleResponse(res);
@@ -28,10 +28,10 @@ export function authorize({ email, password }) {
 }
 
 export function getUserInfo(jwt) {
-  return fetch(`${cfg.BASE_URL}/${cfg.USER}`, {
+  return fetch(`${cfg.API_URL}/${cfg.USER}`, {
     method: 'GET',
     headers: {
-      ...cfg.HEADERS,
+      ...cfg.RES_HEADERS,
       Authorization: `Bearer ${jwt}`,
     },
   }).then((res) => {

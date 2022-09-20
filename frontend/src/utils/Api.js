@@ -1,11 +1,11 @@
 export default class Api {
   constructor(apiConfig) {
-    this._server = apiConfig.serverURL;
-    this._headers = apiConfig.headers;
-    this._cards = apiConfig.cardsURL;
-    this._user = apiConfig.userURL;
-    this._avatar = apiConfig.avatarURL;
-    this._likes = apiConfig.likesURL;
+    this._server = apiConfig.WEB_URL;
+    this._headers = apiConfig.REQ_HEADERS;
+    this._cards = apiConfig.CARDS;
+    this._user = apiConfig.USER;
+    this._avatar = apiConfig.AVATAR;
+    this._likes = apiConfig.LIKES;
   }
 
   getUserInfo() {
