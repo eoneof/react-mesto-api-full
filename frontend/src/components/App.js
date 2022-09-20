@@ -167,7 +167,7 @@ export default function App() {
         .then((res) => {
           return res.json();
         })
-        .then(({ data }) => {
+        .then((data) => {
           setUserData(data);
           setIsLoggedIn(true); // triggers redirect in useEffect
         })

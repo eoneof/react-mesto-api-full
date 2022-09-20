@@ -33,7 +33,7 @@ const createUser = (req, res, next) => {
       email,
       password: hash,
     })
-      .then((user) => res.status(CREATED).send(user))
+      .then((user) => res.status(CREATED).send({ data: { _id: user._id, email: user.email } }))
       .catch((err) => {
         if (err.name === 'ValidationError') {
           next(new BadRequestError(BAD_REQUEST_TEXT));
@@ -49,6 +49,9 @@ const createUser = (req, res, next) => {
   });
 };
 
+/**
+ * @returns {{ token: string}} JWT token
+ */
 const login = (req, res, next) => {
   const { email, password } = req.body;
 

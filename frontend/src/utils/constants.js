@@ -4,6 +4,7 @@ export const apiConfig = {
   LIKES: 'likes',
   AVATAR: 'avatar',
   REQ_HEADERS: {
+    authorization: localStorage.getItem('jwt'),
     'content-type': 'application/json',
   },
   API_URL: 'http://127.0.0.1:3001',
@@ -19,6 +20,6 @@ export const apiConfig = {
 export const paths = {
   any: '*',
   root: '/',
-  login: "/signin",
-  register: "/signup",
+  login: '/signin',
+  register: '/signup',
 };
