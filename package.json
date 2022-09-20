@@ -39,8 +39,5 @@
     "gh-pages": "^4.0.0",
     "husky": "^8.0.1",
     "nodemon": "^2.0.19"
-  },
-  "dependencies": {
-    "cors": "^2.8.5"
   }
 }
