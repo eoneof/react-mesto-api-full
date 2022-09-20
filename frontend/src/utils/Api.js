@@ -1,6 +1,6 @@
 export default class Api {
   constructor(apiConfig) {
-    this._server = apiConfig.WEB_URL;
+    this._server = apiConfig.API_URL;
     this._headers = apiConfig.REQ_HEADERS;
     this._cards = apiConfig.CARDS;
     this._user = apiConfig.USER;
