@@ -1,9 +1,3 @@
-export const paths = {
-  any: '*',
-  root: '/',
-  login: '/signin',
-  register: '/sigup',
-};
 
 export const apiConfig = {
   WEB_URL: 'https://mesto.nomoreparties.co/v1/cohort-43',
@@ -21,4 +15,11 @@ export const apiConfig = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
+};
+
+export const paths = {
+  any: '*',
+  root: '/',
+  login: apiConfig.LOGIN,
+  register: apiConfig.REGISTER,
 };
