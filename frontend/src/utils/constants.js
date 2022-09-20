@@ -19,6 +19,6 @@ export const apiConfig = {
 export const paths = {
   any: '*',
   root: '/',
-  login: apiConfig.LOGIN,
-  register: apiConfig.REGISTER,
+  login: "/signin",
+  register: "/signup",
 };
