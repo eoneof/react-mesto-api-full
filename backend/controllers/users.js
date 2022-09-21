@@ -69,10 +69,7 @@ const updateUser = (req, res, next) => {
         next(new NotFoundError(USER_NOT_FOUND_TEXT));
         return;
       }
-      res.send({
-        name: user.name,
-        about: user.about,
-      });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
