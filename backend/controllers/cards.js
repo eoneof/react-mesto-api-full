@@ -84,7 +84,7 @@ const unlikeCard = (req, res, next) => {
         next(new NotFoundError(CARD_NOT_FOUND_TEXT));
         return;
       }
-      res.send({ likes: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {

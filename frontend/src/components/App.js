@@ -38,10 +38,12 @@ export default function App() {
   const [userData, setUserData] = useState({}); // from auth.js
   const navigate = useNavigate();
 
+  const token = utils.getToken()
+
   const api = new Api(consts.apiConfig);
 
   function getAllData() {
-    Promise.all([api.getUserInfo(), api.getCardsList()])
+    Promise.all([api.getUserInfo(token), api.getCardsList(token)])
       .then(([remoteUserData, remoteCardsData]) => {
         setUserInfo(remoteUserData);
         setCardsList(remoteCardsData);
@@ -56,7 +58,7 @@ export default function App() {
 
   function handleAvatarSubmit(inputValue) {
     api
-      .setAvatar(inputValue)
+      .setAvatar(inputValue, token)
       .then((remoteUserData) => {
         setUserInfo(remoteUserData);
       })
@@ -70,7 +72,7 @@ export default function App() {
 
   function handleUserInfoSubmit(inputValues) {
     api
-      .setUserInfo(inputValues)
+      .setUserInfo(inputValues, token)
       .then((remoteUserData) => {
         setUserInfo(remoteUserData);
       })
@@ -84,7 +86,7 @@ export default function App() {
 
   function handleNewPlaceSubmit(inputValues) {
     api
-      .addCard(inputValues)
+      .addCard(inputValues, token)
       .then((remoteCardsData) => {
         setCardsList([remoteCardsData, ...cardsList]);
       })
@@ -97,9 +99,9 @@ export default function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((liker) => liker._id === userInfo._id);
+    const isLiked = card.likes.some((liker) => liker === userInfo._id);
     api
-      .toggleCardLike(card._id, isLiked)
+      .toggleCardLike(card._id, isLiked, token)
       .then((newCard) => {
         setCardsList((state) =>
           state.map((item) => (item._id === card._id ? newCard : item)),
@@ -112,7 +114,7 @@ export default function App() {
 
   function handleCardDelete(card) {
     api
-      .deleteCard(card._id)
+      .deleteCard(card._id, token)
       .then(() => {
         setCardsList((newCardsList) =>
           newCardsList.filter((item) => item._id !== card._id),
@@ -247,7 +249,7 @@ export default function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-          checkToken();
+    checkToken();
   }, []);
 
   return (

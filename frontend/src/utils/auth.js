@@ -32,7 +32,7 @@ export function getUserInfo(jwt) {
     method: 'GET',
     headers: {
       ...cfg.RES_HEADERS,
-      Authorization: `Bearer ${jwt}`,
+      authorization: `Bearer ${jwt}`,
     },
   }).then((res) => {
     return handleResponse(res);

@@ -8,7 +8,12 @@ export default class Api {
     this._likes = apiConfig.LIKES;
   }
 
-  getUserInfo() {
+  _setAuthHeader(token) {
+    this._headers['authorization'] = `Bearer ${token}`;
+  }
+
+  getUserInfo(token) {
+    this._setAuthHeader(token);
     return fetch(`${this._server}/${this._user}`, {
       method: 'GET',
       headers: this._headers,
@@ -17,7 +22,8 @@ export default class Api {
     });
   }
 
-  setUserInfo(data) {
+  setUserInfo(data, token) {
+    this._setAuthHeader(token);
     return fetch(`${this._server}/${this._user}`, {
       method: 'PATCH',
       headers: this._headers,
@@ -27,7 +33,8 @@ export default class Api {
     });
   }
 
-  setAvatar(data) {
+  setAvatar(data, token) {
+    this._setAuthHeader(token);
     return fetch(`${this._server}/${this._user}/${this._avatar}`, {
       method: 'PATCH',
       headers: this._headers,
@@ -37,7 +44,8 @@ export default class Api {
     });
   }
 
-  getCardsList() {
+  getCardsList(token) {
+    this._setAuthHeader(token);
     return fetch(`${this._server}/${this._cards}`, {
       method: 'GET',
       headers: this._headers,
@@ -46,7 +54,8 @@ export default class Api {
     });
   }
 
-  addCard(data) {
+  addCard(data, token) {
+    this._setAuthHeader(token);
     return fetch(`${this._server}/${this._cards}`, {
       method: 'POST',
       headers: this._headers,
@@ -56,7 +65,8 @@ export default class Api {
     });
   }
 
-  deleteCard(id) {
+  deleteCard(id, token) {
+    this._setAuthHeader(token);
     return fetch(`${this._server}/${this._cards}/${id}`, {
       method: 'DELETE',
       headers: this._headers,
@@ -65,7 +75,8 @@ export default class Api {
     });
   }
 
-  toggleCardLike(id, isLiked) {
+  toggleCardLike(id, isLiked, token) {
+    this._setAuthHeader(token);
     return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
       method: !isLiked ? 'PUT' : 'DELETE',
       headers: this._headers,

@@ -4,7 +4,6 @@ export const apiConfig = {
   LIKES: 'likes',
   AVATAR: 'avatar',
   REQ_HEADERS: {
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
     'content-type': 'application/json',
   },
 

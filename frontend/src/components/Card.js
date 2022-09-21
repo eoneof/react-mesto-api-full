@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 export default function Card(props) {
   const { userInfo } = useContext(CurrentUserContext);
 
-  const isOwner = props.cardData.owner._id === userInfo._id ? true : false;
+  const isOwner = props.cardData.owner === userInfo._id ? true : false;
   const hiddenClassName = `${!isOwner ? 'hidden' : ''}`;
 
   const hasLikes = props.cardData.likes.length > 0;

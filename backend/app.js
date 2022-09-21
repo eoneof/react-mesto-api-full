@@ -26,10 +26,10 @@ const {
   SERVER_START_FAILED_TEXT,
 } = require('./utils/constants');
 
+app.use(cors());
 app.use(limiter);
 app.use(helmet.hidePoweredBy());
 app.use(requestLogger);
-app.use(cors());
 
 app.use(express.json()); // body-parser is bundled with Express >4.16
 app.use(express.urlencoded({ extended: true }));
