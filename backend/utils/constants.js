@@ -4,7 +4,6 @@ const BAD_REQUEST = 400;
 const UNAUTHORIZED = 401;
 const FORBIDDEN = 403;
 const NOT_FOUND = 404;
-const NOT_ALLOWED = 405;
 const CONFLICT = 409;
 const SERVER_ERROR = 500;
 
@@ -30,7 +29,6 @@ const EMAIL_EXIST_TEXT = 'Пользователь с такой почтой у
 const USER_NOT_FOUND_TEXT = 'Пользователь не найден';
 const WRONG_CREDENTIALS_TEXT = 'Неправильные почта или пароль';
 const TOKEN_EXPIRED_TEXT = 'Токен недействителен';
-const METHOD_NOT_ALLOWED_TEXT = 'Метод не поддерживается';
 
 // Misc
 const TOKEN_PREFIX = 'Bearer ';
@@ -43,7 +41,6 @@ module.exports = {
   BAD_REQUEST,
   FORBIDDEN,
   NOT_FOUND,
-  NOT_ALLOWED,
   SERVER_ERROR,
   CONFLICT,
   UNAUTHORIZED,
@@ -68,7 +65,6 @@ module.exports = {
   USER_NOT_FOUND_TEXT,
   WRONG_CREDENTIALS_TEXT,
   TOKEN_EXPIRED_TEXT,
-  METHOD_NOT_ALLOWED_TEXT,
 
   TOKEN_PREFIX,
   SALT_ROUNDS,
