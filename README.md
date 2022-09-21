@@ -6,7 +6,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.94.239
+IP 51.250.94.239
 
 Frontend https://web.eoneof.nomoredomains.sbs
 
