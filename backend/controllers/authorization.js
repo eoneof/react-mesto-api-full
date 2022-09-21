@@ -33,7 +33,7 @@ const createUser = (req, res, next) => {
       email,
       password: hash,
     })
-      .then((user) => res.status(CREATED).send({ data: { _id: user._id, email: user.email } }))
+      .then((user) => res.status(CREATED).send(user))
       .catch((err) => {
         if (err.name === 'ValidationError') {
           next(new BadRequestError(BAD_REQUEST_TEXT));
