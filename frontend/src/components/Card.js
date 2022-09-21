@@ -9,7 +9,7 @@ export default function Card(props) {
 
   const hasLikes = props.cardData.likes.length > 0;
   const isLiked = props.cardData.likes.some(
-    (liker) => liker._id === userInfo._id,
+    (liker) => liker === userInfo._id,
   );
 
   function openImageView() {

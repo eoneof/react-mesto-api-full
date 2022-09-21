@@ -15,7 +15,7 @@ const {
 
 const getAllCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send(cards))
+    .then((cards) => res.send(cards.reverse()))
     .catch((err) => {
       next(err);
     });
@@ -65,7 +65,7 @@ const likeCard = (req, res, next) => {
         next(new NotFoundError(CARD_NOT_FOUND_TEXT));
         return;
       }
-      res.status(CREATED).send({ likes: card });
+      res.status(CREATED).send(card);
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {

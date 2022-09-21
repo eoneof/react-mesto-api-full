@@ -100,7 +100,7 @@ const updateUserAvatar = (req, res, next) => {
         next(new NotFoundError(USER_NOT_FOUND_TEXT));
         return;
       }
-      res.send({ avatar: user.avatar });
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
