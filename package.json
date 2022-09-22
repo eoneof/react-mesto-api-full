@@ -1,0 +1,44 @@
+{
+  "name": "react-mesto-api-full",
+  "version": "1.0.0",
+  "description": "Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.",
+  "scripts": {
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "postinstall": "(cd frontend && npm install) && (cd ../backend && npm install)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eoneof-yap/react-mesto-api-full.git"
+  },
+  "author": "Nikolay Ivanov",
+  "license": "ISC",
+  "homepage": "https://web.eoneof.nomoredomains.cbs",
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "commitizen.config.js"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './commitlint.config.js'"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "commitizen": "^4.2.4",
+    "css-to-bem-file-structure": "^0.0.2",
+    "cz-customizable": "^6.9.0",
+    "eslint": "^8.23.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^4.0.0",
+    "husky": "^8.0.1",
+    "nodemon": "^2.0.19"
+  }
+}

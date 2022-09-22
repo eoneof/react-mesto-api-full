@@ -1,0 +1,103 @@
+const Card = require('../models/card');
+
+const NotFoundError = require('../errors/NotFoundError');
+const ForbiddenError = require('../errors/ForbiddenError');
+const BadRequestError = require('../errors/BadRequestError');
+
+const {
+  CREATED,
+  BAD_REQUEST_TEXT,
+  CARD_NOT_FOUND_TEXT,
+  CARD_RESTRICTED_TEXT,
+  WRONG_ID_TEXT,
+  CARD_DELETED_TEXT,
+} = require('../utils/constants');
+
+const getAllCards = (req, res, next) => {
+  Card.find({})
+    .then((cards) => res.send(cards.reverse()))
+    .catch((err) => {
+      next(err);
+    });
+};
+
+const createCard = (req, res, next) => {
+  const { name, link } = req.body;
+  Card.create({ name, link, owner: req.user._id })
+    .then((card) => res.status(CREATED).send(card))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new BadRequestError(BAD_REQUEST_TEXT));
+        return;
+      }
+      next(err);
+    });
+};
+
+const deleteCard = (req, res, next) => {
+  const { id } = req.params;
+  Card.findById(id)
+    .then((card) => {
+      if (!card) {
+        next(new NotFoundError(CARD_NOT_FOUND_TEXT));
+        return;
+      }
+      if (req.user._id !== card.owner.toString()) {
+        next(new ForbiddenError(CARD_RESTRICTED_TEXT));
+        return;
+      }
+      card.delete().then(res.send({ message: CARD_DELETED_TEXT }));
+    })
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        next(BadRequestError(WRONG_ID_TEXT));
+        return;
+      }
+      next(err);
+    });
+};
+
+const likeCard = (req, res, next) => {
+  const { id } = req.params;
+  Card.findByIdAndUpdate(id, { $addToSet: { likes: req.user._id } }, { new: true })
+    .then((card) => {
+      if (!card) {
+        next(new NotFoundError(CARD_NOT_FOUND_TEXT));
+        return;
+      }
+      res.status(CREATED).send(card);
+    })
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        next(BadRequestError(WRONG_ID_TEXT));
+        return;
+      }
+      next(err);
+    });
+};
+
+const unlikeCard = (req, res, next) => {
+  const { id } = req.params;
+  Card.findByIdAndUpdate(id, { $pull: { likes: req.user._id } }, { new: true })
+    .then((card) => {
+      if (!card) {
+        next(new NotFoundError(CARD_NOT_FOUND_TEXT));
+        return;
+      }
+      res.send(card);
+    })
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        next(BadRequestError(WRONG_ID_TEXT));
+        return;
+      }
+      next(err);
+    });
+};
+module.exports = {
+  getAllCards,
+  createCard,
+  deleteCard,
+  likeCard,
+  unlikeCard,
+};
