@@ -1,14 +1,13 @@
 export function requestErrorHandler(err) {
   console.warn(
-    `Произошла трагическая, непоправимая ошибка: ${err.message} | ${err.stack}`,
+    `${origin} ${err.name} c текстом ${err.message} не была обработана. Обратите внимание!`,
   );
 }
 
-export function getToken(){
+export function getToken() {
   const jwt = localStorage.getItem('jwt');
   if (!jwt) {
-    return;
-  } else {
-    return jwt;
+    return null;
   }
+  return jwt;
 }

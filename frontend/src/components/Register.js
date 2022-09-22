@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { Link } from 'react-router-dom';
 
 export default function Register(props) {
@@ -74,3 +76,7 @@ export default function Register(props) {
     </section>
   );
 }
+
+Register.propTypes = {
+  onSubmit: PropTypes.func,
+};

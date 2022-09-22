@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { CSSTransition } from 'react-transition-group';
 
 import iconSuccess from '../../images/icon-success.svg';
@@ -67,3 +69,10 @@ export default function InfoTooltip(props) {
     </CSSTransition>
   );
 }
+
+InfoTooltip.propTypes = {
+  name: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  tooltipType: PropTypes.string,
+};

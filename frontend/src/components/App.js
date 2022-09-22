@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import Api from '../utils/Api.js';
-import * as auth from '../utils/auth.js';
-import * as utils from '../utils/utils.js';
-import * as consts from '../utils/constants.js';
+import Api from '../utils/Api';
+import * as auth from '../utils/auth';
+import * as utils from '../utils/utils';
+import * as consts from '../utils/constants';
 
-import Header from './Header.js';
-import Main from './Main.js';
-import Footer from './Footer.js';
-import Popups from './Popups.js';
-import Card from './Card.js';
-import Login from './Login.js';
-import Register from './Register.js';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import Popups from './Popups';
+import Card from './Card';
+import Login from './Login';
+import Register from './Register';
 
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
-import { ProtectedRoutes } from './ProtectedRoutes.js';
+import CurrentUserContext from '../contexts/CurrentUserContext';
+import ProtectedRoutes from './ProtectedRoutes';
 
 export default function App() {
   const popupsStates = {
@@ -29,188 +29,29 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(popupsStates);
   const [tooltipType, setTooltipType] = useState('');
 
-  const [contentIsLoaded, setContentIsLoaded] = useState(false); // show only header and spinner until data is fetched
+  // show only header and spinner until data is fetched
+  const [contentIsLoaded, setContentIsLoaded] = useState(false);
   const [cardsList, setCardsList] = useState([]);
   const [selectedCard, setSelectedCard] = useState({});
 
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const [userInfo, setUserInfo] = useState({}); // from Api.js
-  const [userData, setUserData] = useState({}); // from auth.js
+  const [userInfo, setUserInfo] = useState({}); // from Api
+  const [userData, setUserData] = useState({}); // from auth
   const navigate = useNavigate();
 
-  const token = utils.getToken()
-
-  const api = new Api(consts.apiConfig);
-
-  function getAllData() {
-    Promise.all([api.getUserInfo(token), api.getCardsList(token)])
-      .then(([remoteUserData, remoteCardsData]) => {
-        setUserInfo(remoteUserData);
-        setCardsList(remoteCardsData);
-      })
-      .then(() => {
-        setContentIsLoaded(true);
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleAvatarSubmit(inputValue) {
-    api
-      .setAvatar(inputValue, token)
-      .then((remoteUserData) => {
-        setUserInfo(remoteUserData);
-      })
-      .then(() => {
-        closeAllPopups();
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleUserInfoSubmit(inputValues) {
-    api
-      .setUserInfo(inputValues, token)
-      .then((remoteUserData) => {
-        setUserInfo(remoteUserData);
-      })
-      .then(() => {
-        closeAllPopups();
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleNewPlaceSubmit(inputValues) {
-    api
-      .addCard(inputValues, token)
-      .then((remoteCardsData) => {
-        setCardsList([remoteCardsData, ...cardsList]);
-      })
-      .then(() => {
-        closeAllPopups();
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((liker) => liker === userInfo._id);
-    api
-      .toggleCardLike(card._id, isLiked, token)
-      .then((newCard) => {
-        setCardsList((state) =>
-          state.map((item) => (item._id === card._id ? newCard : item)),
-        );
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleCardDelete(card) {
-    api
-      .deleteCard(card._id, token)
-      .then(() => {
-        setCardsList((newCardsList) =>
-          newCardsList.filter((item) => item._id !== card._id),
-        );
-      })
-      .then(() => {
-        closeAllPopups();
-      })
-      .catch((err) => {
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleRegister(credentials) {
-    return auth
-      .register(credentials)
-      .then((res) => {
-        showTooltip('success');
-      })
-      .catch((err) => {
-        showTooltip('error');
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function handleLogin(credentials) {
-    return auth
-      .authorize(credentials)
-      .then((res) => {
-        return res.json();
-      })
-      .then(({ token }) => {
-        if (token) {
-          localStorage.setItem('jwt', token);
-          setIsLoggedIn(true); // triggers redirect in useEffect
-          navigate(consts.paths.root);
-        }
-      })
-      .catch((err) => {
-        showTooltip('error');
-        utils.requestErrorHandler(err);
-      });
-  }
-
-  function checkToken() {
-    const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      return;
-    } else {
-      auth
-        .getUserInfo(jwt)
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setUserData(data);
-          setIsLoggedIn(true); // triggers redirect in useEffect
-        })
-        .catch((err) => {
-          setIsLoggedIn(false);
-          utils.requestErrorHandler(err);
-        });
-    }
-  }
-
-  function handleLogout() {
-    localStorage.removeItem('jwt');
-    setIsLoggedIn(false);
-    navigate(consts.paths.login);
-  }
-
   function updateOpenedState(key, value) {
-    for (const item in popupsStates) {
+    Object.keys(popupsStates).forEach((item) => {
       if (item === key) {
         popupsStates[item] = value;
       }
-    }
+    });
     setIsOpen(popupsStates);
   }
 
-  function showTooltip(type) {
-    setTooltipType(type);
-    updateOpenedState('tooltip', true);
-  }
-
-  function handleTooltipClose(type) {
-    closeAllPopups();
-    if (type === 'success') {
-      navigate(consts.paths.login);
-    }
-  }
-
   function closeAllPopups() {
-    for (const item in popupsStates) {
+    Object.keys(popupsStates).forEach((item) => {
       popupsStates[item] = false;
-    }
+    });
     setIsOpen(popupsStates);
   }
 
@@ -240,6 +81,158 @@ export default function App() {
     setSelectedCard({});
   }
 
+  function handleLogout() {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+    navigate(consts.paths.login);
+  }
+
+  function showTooltip(type) {
+    setTooltipType(type);
+    updateOpenedState('tooltip', true);
+  }
+
+  function handleTooltipClose(type) {
+    closeAllPopups();
+    if (type === 'success') {
+      navigate(consts.paths.login);
+    }
+  }
+
+  const api = new Api(consts.apiConfig);
+
+  function getAllData() {
+    Promise.all([api.getUserInfo(utils.getToken()), api.getCardsList(utils.getToken())])
+      .then(([remoteUserData, remoteCardsData]) => {
+        setUserInfo(remoteUserData);
+        setCardsList(remoteCardsData);
+      })
+      .then(() => {
+        setContentIsLoaded(true);
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleAvatarSubmit(inputValue) {
+    api
+      .setAvatar(inputValue, utils.getToken())
+      .then((remoteUserData) => {
+        setUserInfo(remoteUserData);
+      })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleUserInfoSubmit(inputValues) {
+    api
+      .setUserInfo(inputValues, utils.getToken())
+      .then((remoteUserData) => {
+        setUserInfo(remoteUserData);
+      })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleNewPlaceSubmit(inputValues) {
+    api
+      .addCard(inputValues, utils.getToken())
+      .then((remoteCardsData) => {
+        setCardsList([remoteCardsData, ...cardsList]);
+      })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((liker) => liker === userInfo._id);
+    api
+      .toggleCardLike(card._id, isLiked, utils.getToken())
+      .then((newCard) => {
+        setCardsList((state) => state.map((item) => (item._id === card._id ? newCard : item)));
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id, utils.getToken())
+      .then(() => {
+        setCardsList((newCardsList) => newCardsList.filter((item) => item._id !== card._id));
+      })
+      .then(() => {
+        closeAllPopups();
+      })
+      .catch((err) => {
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleRegister(credentials) {
+    return auth
+      .register(credentials)
+      .then(() => {
+        showTooltip('success');
+      })
+      .catch((err) => {
+        showTooltip('error');
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  function handleLogin(credentials) {
+    return auth
+      .authorize(credentials)
+      .then((res) => res.json())
+      .then(({ token }) => {
+        if (token) {
+          localStorage.setItem('jwt', token);
+          setIsLoggedIn(true); // triggers redirect in useEffect
+          navigate(consts.paths.root);
+        }
+      })
+      .catch((err) => {
+        showTooltip('error');
+        utils.requestErrorHandler(err);
+      });
+  }
+
+  // eslint-disable-next-line consistent-return
+  function checkToken() {
+    const jwt = utils.getToken();
+    /* eslint-disable */
+    if (!jwt) {
+      return // do nothing
+    }
+    /* eslint-disable */
+    auth
+      .getUserInfo(jwt)
+      .then((res) => res.json())
+      .then(({ data }) => {
+        setUserData(data);
+        setIsLoggedIn(true); // triggers redirect in useEffect
+      })
+      .catch((err) => {
+        setIsLoggedIn(false);
+        utils.requestErrorHandler(err);
+      });
+  }
+
   useEffect(() => {
     if (isLoggedIn) {
       navigate(consts.paths.root);
@@ -254,7 +247,7 @@ export default function App() {
 
   return (
     <CurrentUserContext.Provider value={{ userData, userInfo, isLoggedIn }}>
-      <div className='page'>
+      <div className="page">
         <Header onLogout={handleLogout} />
         <Routes>
           <Route element={<ProtectedRoutes redirectTo={consts.paths.login} />}>
@@ -263,7 +256,7 @@ export default function App() {
             <Route
               exact
               path={consts.paths.root}
-              element={
+              element={(
                 <Main
                   contentIsLoaded={contentIsLoaded}
                   // page buttons
@@ -277,7 +270,7 @@ export default function App() {
                   onCardThumbClick={openImageViewPopup}
                   onDeleteButtonClick={openConfirmDeletePopup}
                 />
-              }
+              )}
             />
           </Route>
 

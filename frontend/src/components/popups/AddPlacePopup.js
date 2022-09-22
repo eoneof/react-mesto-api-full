@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { CSSTransition } from 'react-transition-group';
 
-import PopupWithForm from './PopupWithForm.js';
+import PopupWithForm from './PopupWithForm';
 
 export default function AddPlacePopup(props) {
   const nodeRef = useRef(null);
@@ -80,3 +82,9 @@ export default function AddPlacePopup(props) {
     </CSSTransition>
   );
 }
+
+AddPlacePopup.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};

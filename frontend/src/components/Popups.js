@@ -1,12 +1,12 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 
-import EditAvatarPopup from './popups/EditAvatarPopup.js';
-import EditProfilePopup from './popups/EditProfilePopup.js';
-import AddPlacePopup from './popups/AddPlacePopup.js';
-import ImagePopup from './popups/ImagePopup.js';
-import PopupConfirm from './popups/PopupConfirm.js';
-import InfoTooltip from './popups/InfoTooltip.js';
+import EditAvatarPopup from './popups/EditAvatarPopup';
+import EditProfilePopup from './popups/EditProfilePopup';
+import AddPlacePopup from './popups/AddPlacePopup';
+import ImagePopup from './popups/ImagePopup';
+import PopupConfirm from './popups/PopupConfirm';
+import InfoTooltip from './popups/InfoTooltip';
 
 export default function Popups(props) {
   return createPortal(

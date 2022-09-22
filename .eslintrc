@@ -2,11 +2,7 @@
   "extends": [
     "airbnb-base"
   ],
-  "plugins": [
-    "react-hooks"
-  ],
   "rules": {
-    "react-hooks/exhaustive-deps": "warn",
     "no-underscore-dangle": [
       "error",
       {
@@ -15,7 +11,6 @@
           "__v"
         ]
       }
-    ],
-    "no-console": 0
+    ]
   }
 }

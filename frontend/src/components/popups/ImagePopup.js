@@ -1,4 +1,6 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+
 import { CSSTransition } from 'react-transition-group';
 
 export default function ImagePopup(props) {
@@ -8,14 +10,10 @@ export default function ImagePopup(props) {
 
   const popupType = 'view';
 
-  const cardHasData = () => {
-    return (props.selectedCard.link && props.selectedCard.link) ===
-      ('' && undefined)
-      ? false
-      : true;
-  };
+  const cardHasData = () => ((props.selectedCard.link && props.selectedCard.link)
+      !== ('' && undefined));
 
-  const isOpen = cardHasData() && props.isOpen ? true : false;
+  const isOpen = !!(cardHasData() && props.isOpen);
 
   function handleExit() {
     props.clearSelectedCard();
@@ -59,3 +57,12 @@ export default function ImagePopup(props) {
     </CSSTransition>
   );
 }
+
+ImagePopup.propTypes = {
+  selectedCard: PropTypes.object,
+  link: PropTypes.string,
+  name: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  clearSelectedCard: PropTypes.func,
+};
