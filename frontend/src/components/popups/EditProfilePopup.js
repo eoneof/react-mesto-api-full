@@ -1,4 +1,4 @@
-import { useRef, useContext, useState, useEffect } from 'react';
+import React, { useRef, useContext, useState, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';

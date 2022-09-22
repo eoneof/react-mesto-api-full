@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import PopupWithForm from './PopupWithForm.js';
+import PopupWithForm from './PopupWithForm';
 
 export default function AddPlacePopup(props) {
   const nodeRef = useRef(null);

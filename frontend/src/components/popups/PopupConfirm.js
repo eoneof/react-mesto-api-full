@@ -1,7 +1,7 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import PopupWithForm from './PopupWithForm.js';
+import PopupWithForm from './PopupWithForm';
 
 export default function PopupConfirm(props) {
   const nodeRef = useRef(null);

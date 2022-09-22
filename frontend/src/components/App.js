@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import Api from '../utils/Api.js';
@@ -131,7 +131,7 @@ export default function App() {
   function handleRegister(credentials) {
     return auth
       .register(credentials)
-      .then((res) => {
+      .then(() => {
         showTooltip('success');
       })
       .catch((err) => {

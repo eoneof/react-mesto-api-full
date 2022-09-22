@@ -1,4 +1,4 @@
-import { useContext, cloneElement } from 'react';
+import React, { useContext, cloneElement } from 'react';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import Preloader from './Preloader.js';

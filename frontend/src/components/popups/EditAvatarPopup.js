@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import PopupWithForm from './PopupWithForm.js';
@@ -7,7 +7,7 @@ export default function EditAvatarPopup(props) {
   const nodeRef = useRef(null);
   // Use a reference to a DOM node as `findDOMNode` is deprecated
   // which is used in `CSSTransition` internally
-  
+
   const avatarRef = useRef();
 
   function handleSubmit(evt) {
