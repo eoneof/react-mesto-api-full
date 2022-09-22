@@ -15,14 +15,15 @@ const errorLogger = expressWinston.errorLogger({
   format: winston.format.json(),
 });
 
-const getTimeStamp = () => new Date().toUTCString();
-
-// Console colors
-const yellow = '\x1b[33m';
-
-const eventLogger = (message) => {
-  /* eslint-disable-next-line no-console */
-  console.log(yellow, `${getTimeStamp()} ${message}`);
-};
+const eventLogger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.splat(),
+    winston.format.json(),
+  ),
+  transports: [
+    new winston.transports.File({ filename: './logs/events.log' }),
+  ],
+});
 
 module.exports = { requestLogger, eventLogger, errorLogger };

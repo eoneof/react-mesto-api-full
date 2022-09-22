@@ -17,7 +17,7 @@ const limiter = rateLimit({
 const routers = require('./routers/routers');
 const notFoundHandler = require('./controllers/notFound');
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
-const { requestLogger, eventLogger, errorLogger } = require('./utils/loggers');
+const { requestLogger, eventLogger, errorLogger } = require('./middlewares/loggers');
 const crashTest = require('./routers/crashTest');
 
 const {
@@ -36,7 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.use(crashTest)
+app.use(crashTest);
 app.use(routers);
 
 app.use(notFoundHandler);
@@ -44,11 +44,12 @@ app.use(notFoundHandler);
 async function main() {
   try {
     await mongoose.connect(DB_ADDRESS);
-    eventLogger(DB_CONNECTED_TEXT);
+    eventLogger.log('info', DB_CONNECTED_TEXT);
     await app.listen(PORT);
-    eventLogger(`${SERVER_STARTED_TEXT} ${PORT}`);
+    eventLogger.log('info', `${SERVER_STARTED_TEXT} ${PORT}`);
   } catch (err) {
-    next(err)
+    eventLogger.log('info', DB_NOT_CONNECTED_TEXT);
+    eventLogger.log('info', SERVER_START_FAILED_TEXT);
   }
 }
 
