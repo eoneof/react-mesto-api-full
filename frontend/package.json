@@ -22,9 +22,10 @@
       "es2021": true
     },
     "extends": [
-      "airbnb/base",
+      "plugin:react/recommended",
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "airbnb-base"
     ],
     "overrides": [],
     "parserOptions": {
@@ -34,7 +35,17 @@
     "plugins": [
       "react"
     ],
-    "rules": {}
+    "rules": {
+      "no-underscore-dangle": [
+        "error",
+        {
+          "allow": [
+            "_id",
+            "__v"
+          ]
+        }
+      ]
+    }
   },
   "browserslist": {
     "production": [

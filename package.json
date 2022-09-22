@@ -4,7 +4,7 @@
   "description": "Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.",
   "scripts": {
     "lint": "npx eslint .",
-    "lint:fix": "npx eslint --fix ./**/*.js*",
+    "lint:fix": "npx eslint . --fix",
     "postinstall": "(cd frontend && npm install) && (cd ../backend && npm install)"
   },
   "repository": {
