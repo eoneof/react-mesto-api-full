@@ -12,9 +12,7 @@ export function register({ email, password }) {
     method: 'POST',
     headers: cfg.RES_HEADERS,
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
 }
 
 export function authorize({ email, password }) {

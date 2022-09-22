@@ -1,6 +1,6 @@
 export function requestErrorHandler(err) {
   console.warn(
-    `Произошла трагическая, непоправимая ошибка: ${err.message} | ${err.stack}`,
+    `${origin} ${err.name} c текстом ${err.message} не была обработана. Обратите внимание!`,
   );
 }
 

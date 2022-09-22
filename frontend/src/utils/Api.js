@@ -71,7 +71,8 @@ export default class Api {
     }).then((res) => this._handleResponse(res));
   }
 
-  static _handleResponse(res) {
+  // eslint-disable-next-line class-methods-use-this
+  _handleResponse(res) {
     if (res.ok) {
       return res.json();
     }

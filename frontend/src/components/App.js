@@ -39,8 +39,6 @@ export default function App() {
   const [userData, setUserData] = useState({}); // from auth
   const navigate = useNavigate();
 
-  const token = utils.getToken();
-
   function updateOpenedState(key, value) {
     Object.keys(popupsStates).forEach((item) => {
       if (item === key) {
@@ -104,7 +102,7 @@ export default function App() {
   const api = new Api(consts.apiConfig);
 
   function getAllData() {
-    Promise.all([api.getUserInfo(token), api.getCardsList(token)])
+    Promise.all([api.getUserInfo(utils.getToken()), api.getCardsList(utils.getToken())])
       .then(([remoteUserData, remoteCardsData]) => {
         setUserInfo(remoteUserData);
         setCardsList(remoteCardsData);
@@ -119,7 +117,7 @@ export default function App() {
 
   function handleAvatarSubmit(inputValue) {
     api
-      .setAvatar(inputValue, token)
+      .setAvatar(inputValue, utils.getToken())
       .then((remoteUserData) => {
         setUserInfo(remoteUserData);
       })
@@ -133,7 +131,7 @@ export default function App() {
 
   function handleUserInfoSubmit(inputValues) {
     api
-      .setUserInfo(inputValues, token)
+      .setUserInfo(inputValues, utils.getToken())
       .then((remoteUserData) => {
         setUserInfo(remoteUserData);
       })
@@ -147,7 +145,7 @@ export default function App() {
 
   function handleNewPlaceSubmit(inputValues) {
     api
-      .addCard(inputValues, token)
+      .addCard(inputValues, utils.getToken())
       .then((remoteCardsData) => {
         setCardsList([remoteCardsData, ...cardsList]);
       })
@@ -162,7 +160,7 @@ export default function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((liker) => liker === userInfo._id);
     api
-      .toggleCardLike(card._id, isLiked, token)
+      .toggleCardLike(card._id, isLiked, utils.getToken())
       .then((newCard) => {
         setCardsList((state) => state.map((item) => (item._id === card._id ? newCard : item)));
       })
@@ -173,7 +171,7 @@ export default function App() {
 
   function handleCardDelete(card) {
     api
-      .deleteCard(card._id, token)
+      .deleteCard(card._id, utils.getToken())
       .then(() => {
         setCardsList((newCardsList) => newCardsList.filter((item) => item._id !== card._id));
       })
@@ -201,9 +199,9 @@ export default function App() {
     return auth
       .authorize(credentials)
       .then((res) => res.json())
-      .then((res) => {
-        if (res) {
-          localStorage.setItem('jwt', res);
+      .then(({ token }) => {
+        if (token) {
+          localStorage.setItem('jwt', token);
           setIsLoggedIn(true); // triggers redirect in useEffect
           navigate(consts.paths.root);
         }
@@ -216,10 +214,12 @@ export default function App() {
 
   // eslint-disable-next-line consistent-return
   function checkToken() {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = utils.getToken();
+    /* eslint-disable */
     if (!jwt) {
-      return null;
+      return // do nothing
     }
+    /* eslint-disable */
     auth
       .getUserInfo(jwt)
       .then((res) => res.json())
