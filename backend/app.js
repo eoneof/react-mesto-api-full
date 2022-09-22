@@ -18,6 +18,7 @@ const routers = require('./routers/routers');
 const notFoundHandler = require('./controllers/notFound');
 const globalErrorHandler = require('./middlewares/globalErrorHandler');
 const { requestLogger, eventLogger, errorLogger } = require('./utils/loggers');
+const crashTest = require('./routers/crashTest');
 
 const {
   DB_CONNECTED_TEXT,
@@ -34,6 +35,7 @@ app.use(requestLogger);
 app.use(express.json()); // body-parser is bundled with Express >4.16
 app.use(express.urlencoded({ extended: true }));
 
+app.use(crashTest)
 app.use(routers);
 
 app.use(notFoundHandler);
