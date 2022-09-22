@@ -30,16 +30,16 @@ const {
 app.use(cors());
 app.use(limiter);
 app.use(helmet.hidePoweredBy());
-app.use(requestLogger);
 
 app.use(express.json()); // body-parser is bundled with Express >4.16
 app.use(express.urlencoded({ extended: true }));
+
+app.use(requestLogger);
 
 app.use(crashTest)
 app.use(routers);
 
 app.use(notFoundHandler);
-app.use(errors());
 
 async function main() {
   try {
@@ -48,15 +48,16 @@ async function main() {
     await app.listen(PORT);
     eventLogger(`${SERVER_STARTED_TEXT} ${PORT}`);
   } catch (err) {
-    errorLogger(DB_NOT_CONNECTED_TEXT);
-    errorLogger(SERVER_START_FAILED_TEXT);
+    next(err)
   }
 }
 
 main();
 
-app.use(globalErrorHandler);
+app.use(errorLogger);
 
+app.use(errors());
+app.use(globalErrorHandler);
 process.on('uncaughtException', (err, origin) => {
   errorLogger(
     `${origin} ${err.name} c текстом ${err.message} не была обработана. Обратите внимание!`,
