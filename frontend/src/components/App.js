@@ -14,8 +14,8 @@ import Card from './Card';
 import Login from './Login';
 import Register from './Register';
 
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { ProtectedRoutes } from './ProtectedRoutes';
+import CurrentUserContext from '../contexts/CurrentUserContext';
+import ProtectedRoutes from './ProtectedRoutes';
 
 export default function App() {
   const popupsStates = {

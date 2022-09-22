@@ -1,4 +1,4 @@
-import { apiConfig as cfg } from './constants.js';
+import { apiConfig as cfg } from './constants';
 
 function handleResponse(res) {
   if (res.ok) {
@@ -13,7 +13,7 @@ export function register({ email, password }) {
     headers: cfg.RES_HEADERS,
     body: JSON.stringify({ email, password }),
   }).then((res) => {
-    return handleResponse(res);
+    handleResponse(res);
   });
 }
 
@@ -22,9 +22,7 @@ export function authorize({ email, password }) {
     method: 'POST',
     headers: cfg.RES_HEADERS,
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    return handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
 }
 
 export function getUserInfo(jwt) {
@@ -34,7 +32,5 @@ export function getUserInfo(jwt) {
       ...cfg.RES_HEADERS,
       authorization: `Bearer ${jwt}`,
     },
-  }).then((res) => {
-    return handleResponse(res);
-  });
+  }).then((res) => handleResponse(res));
 }

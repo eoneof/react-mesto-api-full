@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Link, Routes, Route } from 'react-router-dom';
 
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 import closeButtonIcon from '../images/closeButton.svg';
 import menuButtonIcon from '../images/burger-menu-icon.svg';
-import { paths } from '../utils/constants.js';
+import { paths } from '../utils/constants';
 
 export default function Header({ onLogout }) {
   const { userData } = useContext(CurrentUserContext);
@@ -84,3 +85,7 @@ export default function Header({ onLogout }) {
     </header>
   );
 }
+
+Header.propTypes = {
+  onLogout: PropTypes.func,
+};

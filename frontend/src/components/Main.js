@@ -1,7 +1,8 @@
 import React, { useContext, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
-import Preloader from './Preloader.js';
+import CurrentUserContext from '../contexts/CurrentUserContext';
+import Preloader from './Preloader';
 
 export default function Main(props) {
   const { userInfo } = useContext(CurrentUserContext);
@@ -53,20 +54,29 @@ export default function Main(props) {
       {/* <!-- CARDS WITH PHOTOS --> */}
       <section className='photos' aria-label='Фотографии пользователя'>
         <ul className='cards-grid'>
-          {props.cardsList.map((card) => {
-            // clone Card child from App
-            return cloneElement(props.cardComponent, {
-              key: card._id,
-              cardData: card,
-              onCardThumbClick: props.onCardThumbClick,
-              // from App.js
-              onDeleteButtonClick: props.onDeleteButtonClick,
-              onCardLike: props.onCardLike,
-              dataIsLoaded: props.contentIsLoaded,
-            });
-          })}
+          {props.cardsList.map((card) => cloneElement(props.cardComponent, {
+            key: card._id,
+            cardData: card,
+            onCardThumbClick: props.onCardThumbClick,
+            // from App.js
+            onDeleteButtonClick: props.onDeleteButtonClick,
+            onCardLike: props.onCardLike,
+            dataIsLoaded: props.contentIsLoaded,
+          }))}
         </ul>
       </section>
     </main>
   );
 }
+
+Main.propTypes = {
+  contentIsLoaded: PropTypes.bool,
+  oneditAvatar: PropTypes.func,
+  onEditProfile: PropTypes.func,
+  cardComponent: PropTypes.object,
+  onCardThumbClick: PropTypes.func,
+  onDeleteButtonClick: PropTypes.func,
+  onCardLike: PropTypes.func,
+  onAddCard: PropTypes.func,
+  cardsList: PropTypes.array,
+};

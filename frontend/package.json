@@ -1,5 +1,6 @@
 {
   "name": "react-mesto-api-full",
+  "homepage": "./",
   "version": "1.0.0",
   "description": "Репозиторий для приложения проекта `Mesto`, включающий фронтенд приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.",
   "repository": {
@@ -8,44 +9,12 @@
   },
   "author": "Nikolay Ivanov",
   "license": "ISC",
-  "homepage": "https://github.com/eoneof-yap/react-mesto-api-full/frontend",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "npm run build && scp -r ./build/* mesto@51.250.94.239:/home/mesto-frontend"
-  },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "es2021": true
-    },
-    "extends": [
-      "plugin:react/recommended",
-      "react-app",
-      "react-app/jest",
-      "airbnb-base"
-    ],
-    "overrides": [],
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-    },
-    "plugins": [
-      "react"
-    ],
-    "rules": {
-      "no-underscore-dangle": [
-        "error",
-        {
-          "allow": [
-            "_id",
-            "__v"
-          ]
-        }
-      ]
-    }
   },
   "browserslist": {
     "production": [
@@ -63,6 +32,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",

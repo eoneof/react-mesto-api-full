@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import PropTypes from 'prop-types';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
 export default function Card(props) {
   const { userInfo } = useContext(CurrentUserContext);
 
-  const isOwner = props.cardData.owner === userInfo._id ? true : false;
+  const isOwner = props.cardData.owner === userInfo._id;
   const hiddenClassName = `${!isOwner ? 'hidden' : ''}`;
 
   const hasLikes = props.cardData.likes.length > 0;
@@ -67,3 +68,10 @@ export default function Card(props) {
     </li>
   );
 }
+
+Card.propTypes = {
+  onDeleteButtonClick: PropTypes.func,
+  onCardLike: PropTypes.func,
+  onCardThumbClick: PropTypes.func,
+  cardData: PropTypes.object,
+};

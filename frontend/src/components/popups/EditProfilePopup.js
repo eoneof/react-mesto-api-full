@@ -1,8 +1,12 @@
-import React, { useRef, useContext, useState, useEffect } from 'react';
+import React, {
+  useRef, useContext, useState, useEffect,
+} from 'react';
+import PropTypes from 'prop-types';
+
 import { CSSTransition } from 'react-transition-group';
 
-import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
-import PopupWithForm from './PopupWithForm.js';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import PopupWithForm from './PopupWithForm';
 
 export default function EditProfilePopup(props) {
   const nodeRef = useRef(null);
@@ -13,12 +17,10 @@ export default function EditProfilePopup(props) {
   const [values, setValues] = useState({ name: '', about: '' });
 
   function setInitialValues() {
-    setValues(() => {
-      return {
-        name: userInfo.name,
-        about: userInfo.about,
-      };
-    });
+    setValues(() => ({
+      name: userInfo.name,
+      about: userInfo.about,
+    }));
   }
 
   function handleChanges(evt) {
@@ -97,3 +99,9 @@ export default function EditProfilePopup(props) {
     </CSSTransition>
   );
 }
+
+EditProfilePopup.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export default function Login(props) {
   const [credentials, setCredentials] = useState({
@@ -68,3 +69,7 @@ export default function Login(props) {
     </section>
   );
 }
+
+Login.propTypes = {
+  onSubmit: PropTypes.func,
+};

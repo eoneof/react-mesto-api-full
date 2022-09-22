@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+
 import { CSSTransition } from 'react-transition-group';
 
 import PopupWithForm from './PopupWithForm';
@@ -32,3 +34,10 @@ export default function PopupConfirm(props) {
     </CSSTransition>
   );
 }
+
+PopupConfirm.propTypes = {
+  selectedCard: PropTypes.object,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};

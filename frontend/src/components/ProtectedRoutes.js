@@ -1,22 +1,19 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 // import Preloader from './Preloader.js';
 
-export const ProtectedRoutes = (props) => {
+const ProtectedRoutes = (props) => {
   const { isLoggedIn } = useContext(CurrentUserContext);
 
   return isLoggedIn ? <Outlet /> : <Navigate to={props.redirectTo} />;
+};
 
-  // FIXME: hide login screen on page load if logged in !!!
-  // if (isLoggedIn === null) {
-  //   // hide login screen on first page load
-  //   return <Preloader />;
-  // } else if (isLoggedIn === false) {
-  //   return <Navigate to={props.redirectTo} />;
-  // }
+export default ProtectedRoutes;
 
-  // return <Outlet />;
-  // // Outlet = children
+ProtectedRoutes.propTypes = {
+  redirectTo: PropTypes.string,
 };

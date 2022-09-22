@@ -4,11 +4,10 @@ export function requestErrorHandler(err) {
   );
 }
 
-export function getToken(){
+export function getToken() {
   const jwt = localStorage.getItem('jwt');
   if (!jwt) {
-    return;
-  } else {
-    return jwt;
+    return null;
   }
+  return jwt;
 }

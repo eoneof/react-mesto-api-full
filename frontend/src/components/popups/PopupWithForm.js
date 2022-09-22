@@ -1,11 +1,10 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 
-const PopupWithForm = forwardRef((props, ref) => {
+const PopupWithForm = forwardRef((props, ref) => (
   // Wrap the component with forwardRef() to get
   // a reference to a DOM node from it's parent
-
-  return (
-    <section className={`popup popup_type_${props.popupType}`} ref={ref}>
+  <section className={`popup popup_type_${props.popupType}`} ref={ref}>
       <div className='popup__container'>
         <button
           className='button popup__close-button'
@@ -35,7 +34,17 @@ const PopupWithForm = forwardRef((props, ref) => {
       </div>
       <div className='popup__backdrop' onClick={props.onClose}></div>
     </section>
-  );
-});
+));
+
+PopupWithForm.displayName = PopupWithForm;
 
 export default PopupWithForm;
+
+PopupWithForm.propTypes = {
+  submitButtonText: PropTypes.string,
+  formTitle: PropTypes.string,
+  children: PropTypes.object,
+  popupType: PropTypes.string,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};

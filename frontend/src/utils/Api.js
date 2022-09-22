@@ -9,7 +9,7 @@ export default class Api {
   }
 
   _setAuthHeader(token) {
-    this._headers['authorization'] = `Bearer ${token}`;
+    this._headers.authorization = `Bearer ${token}`;
   }
 
   getUserInfo(token) {
@@ -17,9 +17,7 @@ export default class Api {
     return fetch(`${this._server}/${this._user}`, {
       method: 'GET',
       headers: this._headers,
-    }).then((res) => {
-      return this._handleResponse(res);
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   setUserInfo(data, token) {
@@ -28,9 +26,7 @@ export default class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      return this._handleResponse(res);
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   setAvatar(data, token) {
@@ -39,9 +35,7 @@ export default class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      return this._handleResponse(res);
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   getCardsList(token) {
@@ -49,9 +43,7 @@ export default class Api {
     return fetch(`${this._server}/${this._cards}`, {
       method: 'GET',
       headers: this._headers,
-    }).then((res) => {
-      return this._handleResponse(res);
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   addCard(data, token) {
@@ -60,9 +52,7 @@ export default class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      return this._handleResponse(res);
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   deleteCard(id, token) {
@@ -70,9 +60,7 @@ export default class Api {
     return fetch(`${this._server}/${this._cards}/${id}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then((res) => {
-      return this._handleResponse(res);
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   toggleCardLike(id, isLiked, token) {
@@ -80,12 +68,10 @@ export default class Api {
     return fetch(`${this._server}/${this._cards}/${id}/${this._likes}`, {
       method: !isLiked ? 'PUT' : 'DELETE',
       headers: this._headers,
-    }).then((res) => {
-      return this._handleResponse(res);
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
-  _handleResponse(res) {
+  static _handleResponse(res) {
     if (res.ok) {
       return res.json();
     }
