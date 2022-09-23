@@ -21,11 +21,7 @@ const { requestLogger, errorLogger } = require('./src/middlewares/loggers');
 const { logEventsToConsole, logEventsToFile } = require('./src/utils/utils');
 const crashTest = require('./src/routers/crashTest');
 
-const {
-  DB_CONNECTED_TEXT,
-  SERVER_STARTED_TEXT,
-  SERVER_START_FAILED_TEXT,
-} = require('./src/utils/constants');
+const { SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT } = require('./src/utils/constants');
 
 app.use(cors());
 app.use(limiter);
@@ -52,14 +48,18 @@ async function main() {
       logEventsToConsole(`${SERVER_STARTED_TEXT} ${PORT}`);
     }
   } catch (err) {
-    return new Error(SERVER_START_FAILED_TEXT);
+    if (NODE_ENV === 'production') {
+      logEventsToFile.info(`${SERVER_START_FAILED_TEXT}`);
+    } else {
+      logEventsToConsole(`${SERVER_START_FAILED_TEXT}`);
+    }
+    throw new Error(SERVER_START_FAILED_TEXT);
   }
 }
 
 main();
 
 app.use(errorLogger);
-
 app.use(errors());
 app.use(globalErrorHandler);
 process.on('uncaughtException', (err, origin) => {
