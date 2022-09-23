@@ -1,22 +1,15 @@
 {
-  "name": "express-mesto-gha",
-  "version": "1.0.0",
-  "description": "Mesto backend",
-  "main": "index.js",
+  "name": "mesto-backend-express",
+  "version": "2.0.0",
+  "author": "Nikolay Ivanov",
+  "description": "Репозиторий для бэкенда приложения проекта `Mesto`, со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.",
+  "license": "ISC",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
     "lint": "npx eslint --fix *.js ."
   },
-  "keywords": [
-    "backend",
-    "node.js",
-    "mongodb",
-    "mongoose",
-    "express"
-  ],
-  "author": "Nikolay Ivanov",
-  "license": "ISC",
   "devDependencies": {
     "eslint": "^8.23.1",
     "eslint-config-airbnb-base": "^15.0.0",

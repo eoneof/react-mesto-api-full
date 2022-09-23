@@ -1,23 +1,17 @@
 {
   "name": "react-mesto-api-full",
   "version": "1.0.0",
+  "author": "Nikolay Ivanov",
   "description": "Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.",
-  "scripts": {
-    "lint": "(cd frontend/src && npx eslint .) && (cd backend/src && npx eslint .)",
-    "lint:fix": "(cd frontend/src && npx eslint . --fix) && (cd backend/src && npx eslint . --fix)",
-    "postinstall": "(cd frontend && npm install) && (cd ../backend && npm install)"
-  },
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eoneof-yap/react-mesto-api-full.git"
   },
-  "author": "Nikolay Ivanov",
-  "license": "ISC",
-  "homepage": "https://github.com/eoneof-yap/react-mesto-api-full#readme",
-  "rules": {
-    "no-underscore-dangle": 0,
-    "react/prop-types": 0
-  },
-  "devDependencies": {},
-  "workspaces": []
+  "scripts": {
+    "dev:all": "(cd backend/src && npm run dev) && (cd ../frontend/src && npm run start)",
+    "lint": "(cd frontend/src && npx eslint .) && (cd backend/src && npx eslint .)",
+    "lint:fix": "(cd frontend/src && npx eslint . --fix) && (cd backend/src && npx eslint . --fix)",
+    "postinstall": "(cd frontend && npm install) && (cd ../backend && npm install)"
+  }
 }

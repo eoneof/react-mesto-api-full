@@ -1,14 +1,10 @@
 {
-  "name": "react-mesto-api-full",
-  "homepage": "./",
-  "version": "1.0.0",
-  "description": "Репозиторий для приложения проекта `Mesto`, включающий фронтенд приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eoneof-yap/react-mesto-api-full.git"
-  },
+  "name": "mesto-frontend-react",
+  "version": "2.0.0",
   "author": "Nikolay Ivanov",
+  "description": "Репозиторий для фронтенда приложения проекта `Mesto`, со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.",
   "license": "ISC",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
