@@ -10,8 +10,6 @@ import { paths } from '../utils/constants';
 export default function Header({ onLogout }) {
   const { userData } = useContext(CurrentUserContext);
 
-  console.log(userData);
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const visibleMenuClass = isMenuOpen ? `${'header__menu_mobile'}` : '';
   const menuButtonBgImage = isMenuOpen
