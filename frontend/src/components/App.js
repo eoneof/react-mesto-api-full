@@ -215,22 +215,19 @@ export default function App() {
   // eslint-disable-next-line consistent-return
   function checkToken() {
     const jwt = utils.getToken();
-    /* eslint-disable */
-    if (!jwt) {
-      return // do nothing
+    if (jwt) {
+      auth
+        .getUserInfo(jwt)
+        .then((res) => res.json())
+        .then((data) => {
+          setUserData(data);
+          setIsLoggedIn(true); // triggers redirect in useEffect
+        })
+        .catch((err) => {
+          setIsLoggedIn(false);
+          utils.requestErrorHandler(err);
+        });
     }
-    /* eslint-disable */
-    auth
-      .getUserInfo(jwt)
-      .then((res) => res.json())
-      .then(({ data }) => {
-        setUserData(data);
-        setIsLoggedIn(true); // triggers redirect in useEffect
-      })
-      .catch((err) => {
-        setIsLoggedIn(false);
-        utils.requestErrorHandler(err);
-      });
   }
 
   useEffect(() => {

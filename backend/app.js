@@ -8,24 +8,20 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const app = express();
-const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+const { NODE_ENV, PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
 });
 
-const routers = require('./routers/routers');
-const notFoundHandler = require('./controllers/notFound');
-const globalErrorHandler = require('./middlewares/globalErrorHandler');
-const { requestLogger, eventLogger, errorLogger } = require('./middlewares/loggers');
-const crashTest = require('./routers/crashTest');
+const routers = require('./src/routers/routers');
+const notFoundHandler = require('./src/controllers/notFound');
+const globalErrorHandler = require('./src/middlewares/globalErrorHandler');
+const { requestLogger, errorLogger } = require('./src/middlewares/loggers');
+const { logEventsToConsole, logEventsToFile } = require('./src/utils/utils');
+const crashTest = require('./src/routers/crashTest');
 
-const {
-  DB_CONNECTED_TEXT,
-  SERVER_STARTED_TEXT,
-  DB_NOT_CONNECTED_TEXT,
-  SERVER_START_FAILED_TEXT,
-} = require('./utils/constants');
+const { SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT } = require('./src/utils/constants');
 
 app.use(cors());
 app.use(limiter);
@@ -41,22 +37,29 @@ app.use(routers);
 
 app.use(notFoundHandler);
 
+// eslint-disable-next-line consistent-return
 async function main() {
   try {
     await mongoose.connect(DB_ADDRESS);
-    eventLogger.log('info', DB_CONNECTED_TEXT);
     await app.listen(PORT);
-    eventLogger.log('info', `${SERVER_STARTED_TEXT} ${PORT}`);
+    if (NODE_ENV === 'production') {
+      logEventsToFile.info(`${SERVER_STARTED_TEXT} ${PORT}`);
+    } else {
+      logEventsToConsole(`${SERVER_STARTED_TEXT} ${PORT}`);
+    }
   } catch (err) {
-    eventLogger.log('info', DB_NOT_CONNECTED_TEXT);
-    eventLogger.log('info', SERVER_START_FAILED_TEXT);
+    if (NODE_ENV === 'production') {
+      logEventsToFile.info(`${SERVER_START_FAILED_TEXT}`);
+    } else {
+      logEventsToConsole(`${SERVER_START_FAILED_TEXT}`);
+    }
+    throw new Error(SERVER_START_FAILED_TEXT);
   }
 }
 
 main();
 
 app.use(errorLogger);
-
 app.use(errors());
 app.use(globalErrorHandler);
 process.on('uncaughtException', (err, origin) => {

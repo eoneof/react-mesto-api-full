@@ -8,7 +8,7 @@ import menuButtonIcon from '../images/burger-menu-icon.svg';
 import { paths } from '../utils/constants';
 
 export default function Header({ onLogout }) {
-  const userData = useContext(CurrentUserContext);
+  const { userData } = useContext(CurrentUserContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const visibleMenuClass = isMenuOpen ? `${'header__menu_mobile'}` : '';
