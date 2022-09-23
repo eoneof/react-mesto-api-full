@@ -6,8 +6,8 @@
   "license": "ISC",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "set (NODE_ENV=production) && node app.js",
+    "dev": "set (PORT=3001) && nodemon app.js",
     "lint": "npx eslint --fix *.js ."
   },
   "devDependencies": {

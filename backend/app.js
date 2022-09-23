@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const app = express();
-const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+const { NODE_ENV, PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -17,13 +17,13 @@ const limiter = rateLimit({
 const routers = require('./src/routers/routers');
 const notFoundHandler = require('./src/controllers/notFound');
 const globalErrorHandler = require('./src/middlewares/globalErrorHandler');
-const { requestLogger, eventLogger, errorLogger } = require('./src/middlewares/loggers');
+const { requestLogger, errorLogger } = require('./src/middlewares/loggers');
+const { logEventsToConsole, logEventsToFile } = require('./src/utils/utils');
 const crashTest = require('./src/routers/crashTest');
 
 const {
   DB_CONNECTED_TEXT,
   SERVER_STARTED_TEXT,
-  DB_NOT_CONNECTED_TEXT,
   SERVER_START_FAILED_TEXT,
 } = require('./src/utils/constants');
 
@@ -41,15 +41,18 @@ app.use(routers);
 
 app.use(notFoundHandler);
 
+// eslint-disable-next-line consistent-return
 async function main() {
   try {
     await mongoose.connect(DB_ADDRESS);
-    eventLogger.log('info', DB_CONNECTED_TEXT);
     await app.listen(PORT);
-    eventLogger.log('info', `${SERVER_STARTED_TEXT} ${PORT}`);
+    if (NODE_ENV === 'production') {
+      logEventsToFile.info(`${SERVER_STARTED_TEXT} ${PORT}`);
+    } else {
+      logEventsToConsole(`${SERVER_STARTED_TEXT} ${PORT}`);
+    }
   } catch (err) {
-    eventLogger.log('info', DB_NOT_CONNECTED_TEXT);
-    eventLogger.log('info', SERVER_START_FAILED_TEXT);
+    return new Error(SERVER_START_FAILED_TEXT);
   }
 }
 

@@ -9,10 +9,9 @@ const {
 
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
-const JWT_SECRET =
-  process.env.NODE_ENV === "production"
-    ? process.env.JWT_SECRET
-    : '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const JWT_SECRET = process.env.NODE_ENV === 'production'
+  ? process.env.JWT_SECRET
+  : '123-ABC-XYZ';
 
 // eslint-disable-next-line consistent-return
 const authorize = (req, res, next) => {

@@ -15,7 +15,6 @@ const DEFAULT_AVATAR = 'https://pictures.s3.yandex.net/resources/jacques-coustea
 // Error messages
 const DB_CONNECTED_TEXT = 'База данных подключена';
 const SERVER_START_FAILED_TEXT = 'Сервер не запустился';
-const DB_NOT_CONNECTED_TEXT = 'Не удалось подключиться к базе данных';
 const SERVER_STARTED_TEXT = 'Сервер запущен на порту';
 const SERVER_ERROR_TEXT = 'Сервер не смог обработать запрос';
 const AUTH_REQUIRED_TEXT = 'Необходима авторизация';
@@ -51,7 +50,6 @@ module.exports = {
 
   DB_CONNECTED_TEXT,
   SERVER_START_FAILED_TEXT,
-  DB_NOT_CONNECTED_TEXT,
   SERVER_STARTED_TEXT,
   SERVER_ERROR_TEXT,
   AUTH_REQUIRED_TEXT,

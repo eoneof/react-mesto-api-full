@@ -15,15 +15,4 @@ const errorLogger = expressWinston.errorLogger({
   format: winston.format.json(),
 });
 
-const eventLogger = winston.createLogger({
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.splat(),
-    winston.format.json(),
-  ),
-  transports: [
-    new winston.transports.File({ filename: './logs/events.log' }),
-  ],
-});
-
-module.exports = { requestLogger, eventLogger, errorLogger };
+module.exports = { requestLogger, errorLogger };
