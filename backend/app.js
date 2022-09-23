@@ -14,18 +14,18 @@ const limiter = rateLimit({
   max: 100,
 });
 
-const routers = require('./routers/routers');
-const notFoundHandler = require('./controllers/notFound');
-const globalErrorHandler = require('./middlewares/globalErrorHandler');
-const { requestLogger, eventLogger, errorLogger } = require('./middlewares/loggers');
-const crashTest = require('./routers/crashTest');
+const routers = require('./src/routers/routers');
+const notFoundHandler = require('./src/controllers/notFound');
+const globalErrorHandler = require('./src/middlewares/globalErrorHandler');
+const { requestLogger, eventLogger, errorLogger } = require('./src/middlewares/loggers');
+const crashTest = require('./src/routers/crashTest');
 
 const {
   DB_CONNECTED_TEXT,
   SERVER_STARTED_TEXT,
   DB_NOT_CONNECTED_TEXT,
   SERVER_START_FAILED_TEXT,
-} = require('./utils/constants');
+} = require('./src/utils/constants');
 
 app.use(cors());
 app.use(limiter);

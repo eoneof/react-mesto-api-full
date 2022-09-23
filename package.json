@@ -9,9 +9,13 @@
     "url": "git+https://github.com/eoneof-yap/react-mesto-api-full.git"
   },
   "scripts": {
-    "dev:all": "(cd backend/src && npm run dev) && (cd ../frontend/src && npm run start)",
-    "lint": "(cd frontend/src && npx eslint .) && (cd backend/src && npx eslint .)",
+    "dev:all": "(cd backend && npm run dev) && (cd ../frontend && npm run start)",
+    "lint:all": "(cd frontend/src && npx eslint .) && (cd backend/src && npx eslint .)",
     "lint:fix": "(cd frontend/src && npx eslint . --fix) && (cd backend/src && npx eslint . --fix)",
     "postinstall": "(cd frontend && npm install) && (cd ../backend && npm install)"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "eslint-plugin-import": "^2.26.0"
   }
 }
