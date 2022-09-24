@@ -49,11 +49,11 @@ async function main() {
     }
   } catch (err) {
     if (NODE_ENV === 'production') {
-      logEventsToFile.info(`${SERVER_START_FAILED_TEXT}`);
+      logEventsToFile.info(SERVER_START_FAILED_TEXT);
     } else {
-      logEventsToConsole(`${SERVER_START_FAILED_TEXT}`);
+      logEventsToConsole(SERVER_START_FAILED_TEXT);
     }
-    throw new Error(SERVER_START_FAILED_TEXT);
+    throw new Error(SERVER_START_FAILED_TEXT, err);
   }
 }
 
