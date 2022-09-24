@@ -21,9 +21,16 @@ const { requestLogger, errorLogger } = require('./src/middlewares/loggers');
 const { logEventsToConsole, logEventsToFile } = require('./src/utils/utils');
 const crashTest = require('./src/routers/crashTest');
 
-const { SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT } = require('./src/utils/constants');
+const {
+  SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT, ALLOWED_CORS, ALLOWED_METHODS,
+} = require('./src/utils/constants');
 
-app.use(cors());
+const corsOptions = {
+  origin: ALLOWED_CORS,
+  methods: ALLOWED_METHODS,
+};
+
+app.use(cors(corsOptions));
 app.use(limiter);
 app.use(helmet.hidePoweredBy());
 
