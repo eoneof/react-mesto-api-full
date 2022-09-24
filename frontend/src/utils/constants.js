@@ -6,7 +6,7 @@ export const apiConfig = {
     'content-type': 'application/json',
   },
 
-  API_URL: 'http://127.0.0.1:3000',
+  API_URL: 'http://localhost:3001',
   LOGIN: 'signin',
   REGISTER: 'signup',
   USER: 'users/me',
