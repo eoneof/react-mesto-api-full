@@ -22,14 +22,10 @@ const { logEventsToConsole, logEventsToFile } = require('./src/utils/utils');
 const crashTest = require('./src/routers/crashTest');
 
 const {
-  SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT, ALLOWED_CORS,
+  SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT,
 } = require('./src/utils/constants');
 
-const corsOptions = {
-  origin: ALLOWED_CORS,
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(limiter);
 app.use(helmet.hidePoweredBy());
 

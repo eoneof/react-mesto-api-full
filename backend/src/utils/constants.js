@@ -35,8 +35,6 @@ const SALT_ROUNDS = 10;
 const JWT_EXPIRATION_TIMEOUT = '7d';
 const DB_DUPLICATE_KEY_CODE = 11000;
 
-const ALLOWED_CORS = ['localhost:3000', 'http://web.eoneof.nomoredomains.sbs', 'https://web.eoneof.nomoredomains.sbs'];
-
 module.exports = {
   CREATED,
   BAD_REQUEST,
@@ -70,6 +68,4 @@ module.exports = {
   SALT_ROUNDS,
   JWT_EXPIRATION_TIMEOUT,
   DB_DUPLICATE_KEY_CODE,
-
-  ALLOWED_CORS,
 };
