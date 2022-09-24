@@ -1,6 +1,6 @@
 const { SERVER_ERROR, SERVER_ERROR_TEXT } = require('../utils/constants');
 
-const errorHandler = (req, res, next, err) => {
+const errorHandler = (err, req, res, next) => {
   const { statusCode = SERVER_ERROR, message } = err;
 
   res.status(statusCode).send({
