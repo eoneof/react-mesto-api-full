@@ -36,8 +36,6 @@ const JWT_EXPIRATION_TIMEOUT = '7d';
 const DB_DUPLICATE_KEY_CODE = 11000;
 
 const ALLOWED_CORS = ['localhost:3000', 'http://web.eoneof.nomoredomains.sbs', 'https://web.eoneof.nomoredomains.sbs'];
-const ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
-const ALLOWED_HEADERS = ['content-type', 'authorization'];
 
 module.exports = {
   CREATED,
@@ -74,6 +72,4 @@ module.exports = {
   DB_DUPLICATE_KEY_CODE,
 
   ALLOWED_CORS,
-  ALLOWED_METHODS,
-  ALLOWED_HEADERS,
 };

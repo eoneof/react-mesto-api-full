@@ -27,8 +27,6 @@ const {
 
 const corsOptions = {
   origin: ALLOWED_CORS,
-  methods: ALLOWED_METHODS,
-  allowedHeaders: ALLOWED_HEADERS,
 };
 
 app.use(cors(corsOptions));
