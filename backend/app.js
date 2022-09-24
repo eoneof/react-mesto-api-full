@@ -22,7 +22,7 @@ const { logEventsToConsole, logEventsToFile } = require('./src/utils/utils');
 const crashTest = require('./src/routers/crashTest');
 
 const {
-  SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT, ALLOWED_CORS, ALLOWED_METHODS, ALLOWED_HEADERS,
+  SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT, ALLOWED_CORS,
 } = require('./src/utils/constants');
 
 const corsOptions = {
