@@ -8,7 +8,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const app = express();
-const { NODE_ENV, PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+const { NODE_ENV, PORT = 3001, DB_ADDRESS = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
