@@ -6,7 +6,7 @@
   "license": "ISC",
   "main": "app.js",
   "scripts": {
-    "start": "set NODE_ENV=production&& set PORT=3000&& node app.js",
+    "start": "node app.js",
     "dev": "set PORT=3001&& nodemon app.js",
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint ./src --fix"

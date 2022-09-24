@@ -10,7 +10,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* mesto@51.250.94.239:/home/mesto-frontend",
+    "deploy": "npm run build && scp -r -i ~/.ssh/id_rsa_eoneof-y ./build/* mesto@51.250.94.239:/home/mesto/mesto-frontend",
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint ./src --fix"
   },
