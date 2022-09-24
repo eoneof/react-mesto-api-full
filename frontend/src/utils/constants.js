@@ -6,7 +6,7 @@ export const apiConfig = {
     'content-type': 'application/json',
   },
 
-  API_URL: 'http://localhost:3001',
+  API_URL: 'https://api.eoneof.nomoredomains.sbs',
   LOGIN: 'signin',
   REGISTER: 'signup',
   USER: 'users/me',
