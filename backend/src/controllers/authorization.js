@@ -8,8 +8,8 @@ const JWT_SECRET = process.env.NODE_ENV === 'production'
 
 const User = require('../models/user');
 
-const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 const {
   CREATED,
@@ -35,7 +35,7 @@ const createUser = (req, res, next) => {
       .then((user) => res.status(CREATED).send(user))
       .catch((err) => {
         if (err.name === 'ValidationError') {
-          next(new BadRequestError(BAD_REQUEST_TEXT));
+          next(new ForbiddenError(BAD_REQUEST_TEXT));
           return;
         }
 
