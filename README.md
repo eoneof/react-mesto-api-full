@@ -8,6 +8,6 @@
 
 IP 51.250.94.239
 
-Frontend https://web.eoneof.nomoredomains.sbs
+Frontend http://web.eoneof.nomoredomains.sbs
 
-Backend https://api.eoneof.nomoredomains.sbs
+Backend http://api.eoneof.nomoredomains.sbs
