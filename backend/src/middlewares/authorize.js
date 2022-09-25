@@ -8,7 +8,6 @@ const {
 } = require('../utils/constants');
 
 const UnauthorizedError = require('../errors/UnauthorizedError');
-const ForbiddenError = require('../errors/ForbiddenError');
 
 const JWT_SECRET = process.env.NODE_ENV === 'production'
   ? process.env.JWT_SECRET
@@ -19,7 +18,7 @@ const authorize = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith(TOKEN_PREFIX)) {
-    next(new ForbiddenError(AUTH_REQUIRED_TEXT));
+    next(new UnauthorizedError(AUTH_REQUIRED_TEXT));
     return;
   }
 
