@@ -9,14 +9,13 @@ const JWT_SECRET = process.env.NODE_ENV === 'production'
 const User = require('../models/user');
 
 const ConflictError = require('../errors/ConflictError');
-const BadRequestError = require('../errors/BadRequestError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 const {
   CREATED,
   SALT_ROUNDS,
   EMAIL_EXIST_TEXT,
   JWT_EXPIRATION_TIMEOUT,
-  BAD_REQUEST_TEXT,
   DB_DUPLICATE_KEY_CODE,
 } = require('../utils/constants');
 
@@ -35,7 +34,7 @@ const createUser = (req, res, next) => {
       .then((user) => res.status(CREATED).send(user))
       .catch((err) => {
         if (err.name === 'ValidationError') {
-          next(new BadRequestError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));
+          next(new ForbiddenError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));
           return;
         }
 
