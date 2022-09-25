@@ -1,5 +1,5 @@
 const isDev = () => {
-  if (!process.env.REACT_APP_ENV || process.env.REACT_APP_ENV === 'development') {
+  if (process.env.REACT_APP_ENV === 'development') {
     return true;
   }
   return false;
