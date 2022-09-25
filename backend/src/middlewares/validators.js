@@ -37,18 +37,15 @@ const validateId = (req, res, next, err) => {
   next(err);
 };
 
-const validateUserCredentials = (req, res, next, err) => {
-  celebrate({
-    body: Joi.object().keys({
-      name: userNameConfig,
-      about: userAboutConfig,
-      avatar: avatarConfig,
-      email: emailConfig,
-      password: passwordConfig,
-    }),
-  });
-  next(err);
-};
+const validateUserCredentials = celebrate({
+  body: Joi.object().keys({
+    name: userNameConfig,
+    about: userAboutConfig,
+    avatar: avatarConfig,
+    email: emailConfig,
+    password: passwordConfig,
+  }),
+});
 
 const validateUserInfo = (req, res, next, err) => {
   celebrate({
@@ -60,24 +57,18 @@ const validateUserInfo = (req, res, next, err) => {
   next(err);
 };
 
-const validateUserAvatar = (req, res, next, err) => {
-  celebrate({
-    body: Joi.object().keys({
-      avatar: avatarConfig,
-    }),
-  });
-  next(err);
-};
+const validateUserAvatar = celebrate({
+  body: Joi.object().keys({
+    avatar: avatarConfig,
+  }),
+});
 
-const validateCardData = (req, res, next, err) => {
-  celebrate({
-    body: Joi.object().keys({
-      name: cardNameConfig,
-      link: urlConfig,
-    }),
-  });
-  next(err);
-};
+const validateCardData = celebrate({
+  body: Joi.object().keys({
+    name: cardNameConfig,
+    link: urlConfig,
+  }),
+});
 
 module.exports = {
   validateId,
