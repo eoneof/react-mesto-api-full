@@ -7,7 +7,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "set PORT=3001&& nodemon app.js",
+    "dev": "set NODE_ENV=development&& set PORT=3001&& nodemon app.js",
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint ./src --fix"
   },

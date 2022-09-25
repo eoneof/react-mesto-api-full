@@ -66,6 +66,6 @@ app.use(errors());
 app.use(globalErrorHandler);
 process.on('uncaughtException', (err, origin) => {
   errorLogger(
-    `${origin} ${err.name} c текстом ${err.message} не была обработана. Обратите внимание!`,
+    `Ошибка "${origin}" "${err.name}" "${err.message}" не была обработана. Обратите внимание!`,
   );
 });

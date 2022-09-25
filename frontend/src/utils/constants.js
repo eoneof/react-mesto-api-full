@@ -1,3 +1,10 @@
+const isDev = () => {
+  if (!process.env.REACT_APP_ENV || process.env.REACT_APP_ENV === 'development') {
+    return true;
+  }
+  return false;
+};
+
 export const apiConfig = {
   CARDS: 'cards',
   LIKES: 'likes',
@@ -6,7 +13,7 @@ export const apiConfig = {
     'content-type': 'application/json',
   },
 
-  API_URL: 'https://api.eoneof.nomoredomains.sbs',
+  API_URL: isDev() ? 'http://127.0.0.1:3001' : 'https://api.eoneof.nomoredomains.sbs',
   LOGIN: 'signin',
   REGISTER: 'signup',
   USER: 'users/me',
