@@ -28,27 +28,21 @@ const passwordConfig = Joi.string().required()
 const cardNameConfig = Joi.string().required().min(2).max(30);
 const urlConfig = Joi.string().required().regex(urlRegex);
 
-const validateId = (req, res, next, err) => {
-  celebrate({
-    params: Joi.object().keys({
-      id: idConfig,
-    }),
-  });
-  next(err);
-};
+const validateId = celebrate({
+  params: Joi.object().keys({
+    id: idConfig,
+  }),
+});
 
-const validateUserCredentials = (req, res, next, err) => {
-  celebrate({
-    body: Joi.object().keys({
-      name: userNameConfig,
-      about: userAboutConfig,
-      avatar: avatarConfig,
-      email: emailConfig,
-      password: passwordConfig,
-    }),
-  });
-  next(err);
-};
+const validateUserCredentials = celebrate({
+  body: Joi.object().keys({
+    name: userNameConfig,
+    about: userAboutConfig,
+    avatar: avatarConfig,
+    email: emailConfig,
+    password: passwordConfig,
+  }),
+});
 
 const validateUserInfo = celebrate({
   body: Joi.object().keys({
