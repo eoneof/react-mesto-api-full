@@ -8,6 +8,7 @@ const JWT_SECRET = process.env.NODE_ENV === 'production'
 
 const User = require('../models/user');
 
+const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
 const ForbiddenError = require('../errors/ForbiddenError');
 
