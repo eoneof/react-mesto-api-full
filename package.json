@@ -1,0 +1,22 @@
+{
+  "name": "react-mesto-api-full",
+  "version": "1.0.0",
+  "author": "Nikolay Ivanov",
+  "description": "Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями.",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eoneof-yap/react-mesto-api-full.git"
+  },
+  "scripts": {
+    "dev": "concurrently \"cd frontend && npm run start\"  \"cd backend && npm run dev\"",
+    "lint:all": "(cd frontend/src && npx eslint .) && (cd backend/src && npx eslint .)",
+    "lint:fix": "(cd frontend/src && npx eslint . --fix) && (cd backend/src && npx eslint . --fix)",
+    "postinstall": "cd frontend && npm install && cd ../backend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^7.4.0",
+    "eslint": "^8.23.1",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}

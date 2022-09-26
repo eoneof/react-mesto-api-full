@@ -1,0 +1,107 @@
+import React, {
+  useRef, useContext, useState, useEffect,
+} from 'react';
+import PropTypes from 'prop-types';
+
+import { CSSTransition } from 'react-transition-group';
+
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import PopupWithForm from './PopupWithForm';
+
+export default function EditProfilePopup(props) {
+  const nodeRef = useRef(null);
+  // Use a reference to a DOM node as `findDOMNode` is deprecated
+  // which is used in `CSSTransition` internally
+
+  const { userInfo } = useContext(CurrentUserContext);
+  const [values, setValues] = useState({ name: '', about: '' });
+
+  function setInitialValues() {
+    setValues(() => ({
+      name: userInfo.name,
+      about: userInfo.about,
+    }));
+  }
+
+  function handleChanges(evt) {
+    // extract target input's attributes
+    const { name, value } = evt.target;
+
+    // set it's name as key and it's value as value
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    props.onSubmit(values);
+    setInitialValues();
+  }
+
+  function handleClose() {
+    props.onClose();
+  }
+
+  useEffect(() => {
+    props.isOpen && setInitialValues();
+  }, [userInfo, props.isOpen]);
+
+  return (
+    <CSSTransition
+      in={props.isOpen}
+      nodeRef={nodeRef}
+      timeout={200}
+      classNames='popup_opened'
+      unmountOnExit>
+      <PopupWithForm
+        ref={nodeRef}
+        formTitle='Редактировать профиль'
+        popupType='edit'
+        submitButtonText='Сохранить'
+        onClose={handleClose}
+        onSubmit={handleSubmit}>
+        {/* children */}
+        <fieldset className='form__fieldset'>
+          <div className='form__input-container'>
+            <input
+              className='form__input'
+              id='nameInput'
+              name='name'
+              type='text'
+              minLength='2'
+              maxLength='40'
+              placeholder='Как вас зовут?'
+              onChange={handleChanges}
+              value={values.name}
+              required
+            />
+            <span className='form__input-error-hint name-input-error'></span>
+          </div>
+          <div className='form__input-container'>
+            <input
+              className='form__input'
+              id='aboutInput'
+              name='about'
+              type='text'
+              minLength='2'
+              maxLength='200'
+              placeholder='Напишите что-нибудь о себе'
+              onChange={handleChanges}
+              value={values.about}
+              required
+            />
+            <span className='form__input-error-hint link-input-error'></span>
+          </div>
+        </fieldset>
+      </PopupWithForm>
+    </CSSTransition>
+  );
+}
+
+EditProfilePopup.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+};
