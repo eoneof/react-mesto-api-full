@@ -21,7 +21,9 @@ const { requestLogger, errorLogger } = require('./src/middlewares/loggers');
 const { logEventsToConsole, logEventsToFile } = require('./src/utils/utils');
 const crashTest = require('./src/routers/crashTest');
 
-const { SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT } = require('./src/utils/constants');
+const {
+  SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT,
+} = require('./src/utils/constants');
 
 app.use(cors());
 app.use(limiter);
@@ -49,11 +51,11 @@ async function main() {
     }
   } catch (err) {
     if (NODE_ENV === 'production') {
-      logEventsToFile.info(`${SERVER_START_FAILED_TEXT}`);
+      logEventsToFile.info(SERVER_START_FAILED_TEXT);
     } else {
-      logEventsToConsole(`${SERVER_START_FAILED_TEXT}`);
+      logEventsToConsole(SERVER_START_FAILED_TEXT);
     }
-    throw new Error(SERVER_START_FAILED_TEXT);
+    throw new Error(SERVER_START_FAILED_TEXT, err);
   }
 }
 
@@ -64,6 +66,6 @@ app.use(errors());
 app.use(globalErrorHandler);
 process.on('uncaughtException', (err, origin) => {
   errorLogger(
-    `${origin} ${err.name} c текстом ${err.message} не была обработана. Обратите внимание!`,
+    `Ошибка "${origin}" "${err.name}" "${err.message}" не была обработана. Обратите внимание!`,
   );
 });

@@ -1,5 +1,14 @@
 const winston = require('winston');
 
+const { BAD_REQUEST_TEXT } = require('./constants');
+const ForbiddenError = require('../errors/ForbiddenError');
+
+const checkPublicRequests = (req, res, next) => {
+  if (req.method !== 'POST') {
+    next(new ForbiddenError(BAD_REQUEST_TEXT));
+  }
+};
+
 const timeStamp = () => new Date().toUTCString();
 
 const logEventsToConsole = (message) => {
@@ -17,4 +26,4 @@ const logEventsToFile = winston.createLogger({
   ],
 });
 
-module.exports = { logEventsToConsole, logEventsToFile };
+module.exports = { logEventsToConsole, logEventsToFile, checkPublicRequests };

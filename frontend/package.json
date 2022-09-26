@@ -6,11 +6,12 @@
   "license": "ISC",
   "homepage": "./",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set REACT_APP_ENV=production&& react-scripts start",
+    "dev": "set REACT_APP_ENV=development&& react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && scp -r ./build/* mesto@51.250.94.239:/home/mesto-frontend",
+    "deploy:": "npm run build && scp -r -i ~/.ssh/id_rsa_eoneof-y ./build/* mesto@84.201.188.183:/home/mesto/react-mesto-api-full/frontend/build",
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint ./src --fix"
   },
