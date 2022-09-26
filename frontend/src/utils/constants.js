@@ -13,7 +13,7 @@ export const apiConfig = {
     'content-type': 'application/json',
   },
 
-  API_URL: isDev() ? 'http://127.0.0.1:3001' : 'https://api.eoneof.nomoredomains.sbs',
+  API_URL: isDev() ? '127.0.0.1:3001' : 'api.eoneof.nomoredomains.sbs',
   LOGIN: 'signin',
   REGISTER: 'signup',
   USER: 'users/me',
