@@ -1,12 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-**node_modules
+**/node_modules
 **.pnp
 **.pnp.js
 
 # testing
-**coverage
+**/coverage
 
 # misc
 *.env
@@ -29,10 +29,10 @@
 **.npm
 
 # Optional REPL history
-**.DS_Store
-**.idea
-**.vscode
+**/.DS_Store
+**/.idea
+**/.vscode
 
 # Build
 
-**build
+**/build
