@@ -19,13 +19,14 @@ const notFoundHandler = require('./src/controllers/notFound');
 const globalErrorHandler = require('./src/middlewares/globalErrorHandler');
 const { requestLogger, errorLogger } = require('./src/middlewares/loggers');
 const { logEventsToConsole, logEventsToFile } = require('./src/utils/utils');
-const crashTest = require('./src/routers/crashTest');
 
 const {
   SERVER_STARTED_TEXT, SERVER_START_FAILED_TEXT,
 } = require('./src/utils/constants');
+const checkCors = require('./src/middlewares/checkCors');
 
 app.use(cors());
+app.use(checkCors);
 app.use(limiter);
 app.use(helmet.hidePoweredBy());
 
@@ -34,7 +35,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.use(crashTest);
 app.use(routers);
 
 app.use(notFoundHandler);
