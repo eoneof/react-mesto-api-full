@@ -6,7 +6,10 @@ const currentYear = date.getFullYear();
 function Footer() {
   return (
     <footer className='footer'>
-      <p className='footer__copyright'>© {currentYear} Mesto Russia</p>
+      <p className='footer__copyright'>
+        © {currentYear} Mesto Russia
+      </p>
+      <a className='footer__link link' href='https://imakedthese.xyz'>I maked these 🫘</a>
     </footer>
   );
 }
